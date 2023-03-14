@@ -14,6 +14,9 @@ function App() {
       if (entry.name) {
         initialValuesObj[entry.name] = "";
       }
+      if (entry.type === "select") {
+        initialValuesObj[entry.name] = entry.options[0].value;
+      }
     });
     setInitialValues(initialValuesObj);
   };
