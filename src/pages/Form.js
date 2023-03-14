@@ -1,21 +1,30 @@
 import React from "react";
 import { useFormik } from "formik";
 import CustomSelect from "../components/CustomSelect";
+import * as Yup from "yup";
 
 function FormComponent({ initialValues, data }) {
-  // console.log(data);
+  const getValidationSchema = (data) => {
+    const validationSchema = {};
+    data.forEach((entry) => {
+      if (entry.type === "checkbox" && entry.required) {
+        validationSchema[entry.name] = Yup.boolean()
+          .oneOf([true], "Debes aceptar los términos y condiciones")
+          .required("Debes aceptar los términos y condiciones");
+      }
+      if (entry.type === "email") {
+        validationSchema[entry.name] = Yup.string()
+          .email("correo inválido")
+          .required("Este campo no debe estar vacío");
+      } else if (entry.required && entry.type !== "checkbox") {
+        validationSchema[entry.name] = Yup.string()
+          .max(30, `No debe superar los 30 caracteres`)
+          .required("Este campo no debe estar vacío");
+      }
+    });
 
-  // const validate = (values) => {
-  //   const errors = {};
-
-  //   data.forEach((entry) => {
-  //     if (entry.required && !values[entry.name]) {
-  //       errors[entry.name] = `Este campo no puede estar vacío`;
-  //     }
-  //   });
-
-  //   return errors;
-  // };
+    return validationSchema;
+  };
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -23,8 +32,11 @@ function FormComponent({ initialValues, data }) {
       console.log("submitted", values);
     },
     enableReinitialize: true,
-    // validate,
+    validationSchema: Yup.object(getValidationSchema(data)),
+    validateOnChange: false,
   });
+
+  console.log(formik.errors);
 
   const formContent = (
     <>
@@ -58,7 +70,7 @@ function FormComponent({ initialValues, data }) {
           return (
             <div className="mb-4">
               <label
-                className="md:w-2/3 block text-gray-500 font-bold mb-2"
+                className="md:w-2/3 block text-gray-500 font-bold mb-2 "
                 htmlFor={data[el].name}
               >
                 {data[el].label}
@@ -66,8 +78,8 @@ function FormComponent({ initialValues, data }) {
               <input
                 className={
                   data[el].type === "checkbox"
-                    ? "form-checkbox h-5 w-5 text-gray-600 "
-                    : "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    ? "form-checkbox h-5 w-5 mt-2 shadow rounded focus:border-teal-500 focus:ring-teal-500"
+                    : "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline focus:border-blue-500 focus:ring-blue-500"
                 }
                 name={data[el].name}
                 value={formik.values[data[el].name]}
@@ -87,7 +99,7 @@ function FormComponent({ initialValues, data }) {
         if (data[el].type === "submit") {
           return (
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               {data[el].label}
@@ -104,6 +116,7 @@ function FormComponent({ initialValues, data }) {
     <div className="h-screen flex items-center justify-center">
       {Object.keys(data).length ? (
         <form
+          noValidate
           className="shadow-md rounded px-8 pt-6 pb-8 mb-4 "
           autoComplete="off"
           onSubmit={formik.handleSubmit}

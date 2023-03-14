@@ -1,7 +1,7 @@
 import React from "react";
 import Select from "react-select";
 
-function CustomSelect({ onChange, options, value, className }) {
+function CustomSelect({ onChange, options, value, className, placeholder }) {
   const defaultValue = (options, value) => {
     return options ? options.find((option) => option.value === value) : "";
   };
@@ -14,12 +14,13 @@ function CustomSelect({ onChange, options, value, className }) {
   };
 
   return (
-    <div className={className}>
+    <div>
       <Select
+        className={className}
         value={defaultValue(options, value)}
         onChange={(value) => onChange(value)}
         options={options}
-        placeholder="Selecciona una opción..."
+        placeholder={placeholder ? placeholder : "Selecciona una opción..."}
         styles={customStyles}
       />
     </div>
