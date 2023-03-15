@@ -168,9 +168,10 @@ function FormComponent({ initialValues, data }) {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center bg-gray-50">
       {Object.keys(data).length && !didSubmit ? (
         <form
+          mx-12
           mt-10
           noValidate
           className="shadow-md rounded px-8 pt-6 pb-8 mb-10 mt-10 bg-white h-min-60"
