@@ -34,7 +34,7 @@ function App() {
     <div>
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={<FormComponent initialValues={initialValues} data={data} />}
         />
         <Route path="/response" element={<Response />} />

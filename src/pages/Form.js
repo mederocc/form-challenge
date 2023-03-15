@@ -1,10 +1,16 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useFormik } from "formik";
 import CustomSelect from "../components/CustomSelect";
 import * as Yup from "yup";
 import debounce from "lodash/debounce";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
+import RedirectButton from "../components/RedirectButton";
 
 function FormComponent({ initialValues, data }) {
+  const [responseId, setResponseId] = useState("");
+  const [didSubmit, setDidSubmit] = useState(false);
+
   const getValidationSchema = (data) => {
     const validationSchema = {};
     data.forEach((entry) => {
@@ -27,13 +33,25 @@ function FormComponent({ initialValues, data }) {
     return validationSchema;
   };
 
+  const userCollectionRef = collection(db, "user");
+
+  const handleSubmit = async (values) => {
+    try {
+      const response = await addDoc(userCollectionRef, values);
+      setDidSubmit(true);
+      formik.resetForm({ values: initialValues, errors: {}, touched: {} });
+
+      setResponseId(response.id);
+
+      // navigate("/response", { state: { id: response.id } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const formik = useFormik({
     initialValues: initialValues,
-    onSubmit: (values) => {
-      console.log("submitted", values);
-
-      formik.resetForm({ values: initialValues, errors: {}, touched: {} });
-    },
+    onSubmit: handleSubmit,
     enableReinitialize: true,
     validationSchema: Yup.object(getValidationSchema(data)),
     validateOnChange: false,
@@ -45,7 +63,6 @@ function FormComponent({ initialValues, data }) {
   );
 
   useEffect(() => {
-    console.log("calling deboucedValidate");
     debouncedValidate(formik.values);
   }, [formik.values, debouncedValidate]);
 
@@ -136,7 +153,7 @@ function FormComponent({ initialValues, data }) {
 
   return (
     <div className="h-screen flex items-center justify-center">
-      {Object.keys(data).length ? (
+      {Object.keys(data).length && !didSubmit ? (
         <form
           noValidate
           className="shadow-md rounded px-8 pt-6 pb-8 mb-4  bg-gray-100"
@@ -145,9 +162,8 @@ function FormComponent({ initialValues, data }) {
         >
           <div>{formContent}</div>
         </form>
-      ) : (
-        "Loading"
-      )}
+      ) : null}
+      {didSubmit && <RedirectButton responseId={responseId} />}
     </div>
   );
 }
