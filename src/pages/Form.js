@@ -71,7 +71,10 @@ function FormComponent({ initialValues, data }) {
       {Object.keys(data).map((el) => {
         if (data[el].type === "select") {
           return (
-            <div key={data[el].name} className="mb-10">
+            <div
+              key={data[el].name}
+              className="mb-10 rounded-lg shadow-md m-4 text-gray-800 bg-gray-50	p-5"
+            >
               <label
                 className="text-gray-500 font-bold"
                 htmlFor={data[el].name}
@@ -97,7 +100,10 @@ function FormComponent({ initialValues, data }) {
 
         if (data[el].name) {
           return (
-            <div key={data[el].name} className="mb-10">
+            <div
+              key={data[el].name}
+              className="mb-10  rounded-lg shadow-md m-4 text-gray-800 bg-gray-50	p-5"
+            >
               <label
                 className="md:w-2/3 block text-gray-500 font-bold mb-2 "
                 htmlFor={data[el].name}
@@ -152,11 +158,11 @@ function FormComponent({ initialValues, data }) {
   );
 
   return (
-    <div className="h-screen flex items-center justify-center">
+    <div className="h-screen flex items-center justify-center bg-gray-50">
       {Object.keys(data).length && !didSubmit ? (
         <form
           noValidate
-          className="shadow-md rounded px-8 pt-6 pb-8 mb-4  bg-gray-100"
+          className="shadow-md rounded px-8 pt-6 pb-8 mb-4  bg-white"
           autoComplete="off"
           onSubmit={formik.handleSubmit}
         >
