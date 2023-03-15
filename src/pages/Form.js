@@ -168,10 +168,10 @@ function FormComponent({ initialValues, data }) {
   );
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center  bg-gray-50 p-3">
+    <div className="flex flex-col justify-center items-center">
       {Object.keys(data).length && !didSubmit ? (
         <form
-          my-auto
+          mt-10
           noValidate
           className="shadow-md rounded px-8 pt-6 pb-8 mb-10 mt-10 bg-white h-min-60"
           autoComplete="off"
