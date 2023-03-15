@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# **Form Challenge**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Realizar una app en React.js que lea un archivo JSON y genere con cada ítem una interfaz de app de encuesta (como Google Forms).
 
-## Available Scripts
+En cuanto a diseño y estética tiene que diferir de Google Forms.
 
-In the project directory, you can run:
+Las respuestas de la encuesta deben ser enviadas a una base de datos de Firebase.
 
-### `npm start`
+Por último, traer las respuestas de la base de datos ya mencionada y mostrarlas en la misma app pero en otra ruta. Al presionar "enviar" en el formulario tiene que aparecer un mensaje y el acceso a esa ruta en donde estarán las respuestas.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Deployado en Vercel: [https://form-challenge-ten.vercel.app/](https://form-challenge-ten.vercel.app/)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Tecnologías utilizadas**
 
-### `npm test`
+- React
+- Firebase
+- Formik
+- Yup
+- Tailwind CSS
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Instalación**
 
-### `npm run build`
+1. Clonar el repositorio: **git clone https://github.com/mederocc/form-challenge.git**
+2. Instalar dependencias: **npm install**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Uso**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Configurar credenciales de Firebase en **src/config/firebase.js**
+2. Ejecutar la aplicación: **npm start**
+3. Acceder a la URL: **http://localhost:3000**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Funcionalidades**
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Crea un formulario dinámicamente a partir de una lista de valores de un archivo JSON
+- Crea una colección en Firebase según las respuestas a guardar que reciba del formulario
+- Recupera los valores de un registro en Firebase a través del ID que retorna al ser generado
